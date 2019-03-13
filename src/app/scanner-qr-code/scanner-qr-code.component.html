@@ -1,0 +1,9 @@
+<div class="containerQr">  
+  <button (click)="ativar()" class="btn btn-primary">ativar QRCODE</button> 
+  <zxing-scanner #scanner class="scannerQR border border-primary" [device]="currentDevice"
+    (scanSuccess)="handleQrCodeResult($event)" [formats]="['EAN_13', 'CODE_128', 'QR_CODE']" [tryHarder]="true">
+  </zxing-scanner>
+  <div>
+    <p>{{qrResultString}}</p>
+  </div>
+</div>
