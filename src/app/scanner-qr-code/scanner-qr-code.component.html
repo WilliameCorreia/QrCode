@@ -1,9 +1,44 @@
-<div class="containerQr">  
-  <button (click)="ativar()" class="btn btn-primary">ativar QRCODE</button> 
-  <zxing-scanner #scanner class="scannerQR border border-primary" [device]="currentDevice"
-    (scanSuccess)="handleQrCodeResult($event)" [formats]="['EAN_13', 'CODE_128', 'QR_CODE']" [tryHarder]="true">
-  </zxing-scanner>
-  <div>
-    <p>{{qrResultString}}</p>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <p><strong>Disposivo: </strong>{{ stateToEmoji(hasDevices) }} <strong>Permissões: {{ stateToEmoji(hasPermission) }}</strong></p>
+    </div>
+    <div class="col">
+        <p></p>
+    </div>
   </div>
-</div>
+  <div class="row headermenu">
+    <div class="col">
+      <select (change)="onDeviceSelectChange($event.target.value)">
+        <option value="" [selected]="!currentDevice">Selecione sua camera</option>
+        <option *ngFor="let device of availableDevices" [value]="device.deviceId"
+          [selected]="currentDevice && device.deviceId === currentDevice.deviceId">{{device.label}}</option>
+      </select>
+    </div>
+    <div class="col-6" *ngIf="hasPermission === false">
+      <p><strong>Atenção: </strong> acesso a sua camera estar bloqueado, não é possivel realizar a leitura do qr code!
+        😪</p>
+    </div>
+    <div class="col-6" *ngIf="hasDevices === false">
+      <h5>Camera não encontrada.</h5>
+      <p>Acredito que seu dispositivo não possui cameras conectadas.</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <zxing-scanner #scanner class="scannerQR border border-primary" [device]="currentDevice"
+        (scanSuccess)="handleQrCodeResult($event)" [formats]="['EAN_13', 'CODE_128', 'QR_CODE']" [tryHarder]="true">
+      </zxing-scanner>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <strong> resultado do QrCode : {{qrResultString | json}}</strong>
+    </div>
+    <div class="col" *ngIf="hasDevices === undefined">
+      <h5>Não foi possível verificar sua camera:</h5>
+      <blockquote>
+        Isso pode ser causado por erro de segurança.
+      </blockquote>
+    </div>
+  </div>

@@ -9,7 +9,7 @@ import { Result } from '@zxing/library';
 })
 export class AppComponent implements OnInit {
 
-   @ViewChild('scanner') scanner: ZXingScannerComponent;
+  /*  @ViewChild('scanner') scanner: ZXingScannerComponent;
 
     hasDevices: boolean;
     hasPermission: boolean;
@@ -17,13 +17,13 @@ export class AppComponent implements OnInit {
     qrResult: Result;
 
     availableDevices: MediaDeviceInfo[];
-    currentDevice: MediaDeviceInfo; 
+    currentDevice: MediaDeviceInfo;  */
 
     constructor() {
 
     }
     ngOnInit() {
-         this.scanner.camerasFound.subscribe((devices: MediaDeviceInfo[]) => {
+        /*  this.scanner.camerasFound.subscribe((devices: MediaDeviceInfo[]) => {
             this.hasDevices = true;
             this.availableDevices = devices;
 
@@ -39,9 +39,9 @@ export class AppComponent implements OnInit {
 
         this.scanner.camerasNotFound.subscribe(() => this.hasDevices = false);
         this.scanner.scanComplete.subscribe((result: Result) => this.qrResult = result);
-        this.scanner.permissionResponse.subscribe((perm: boolean) => this.hasPermission = perm);
+        this.scanner.permissionResponse.subscribe((perm: boolean) => this.hasPermission = perm); */
     }
-     displayCameras(cameras: MediaDeviceInfo[]) {
+    /*  displayCameras(cameras: MediaDeviceInfo[]) {
         console.debug('Devices: ', cameras);
         this.availableDevices = cameras;
     }
@@ -70,6 +70,6 @@ export class AppComponent implements OnInit {
         };
 
         return states['' + state];
-    } 
+    }  */
 
 }

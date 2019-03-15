@@ -21,10 +21,12 @@ export class ScannerQrCodeComponent implements OnInit {
 
   constructor() { }
 
+
   ngOnInit() {
     this.scanner.camerasFound.subscribe((devices: MediaDeviceInfo[]) => {
       this.hasDevices = true;
       this.availableDevices = devices;
+      console.log("passou aqui")
     });
 
     this.scanner.camerasNotFound.subscribe(() => this.hasDevices = false);
@@ -37,9 +39,31 @@ export class ScannerQrCodeComponent implements OnInit {
     this.currentDevice = this.scanner.getDeviceById(this.availableDevices[0].deviceId);
   }
 
-  handleQrCodeResult(resultString: string){
+  onDeviceSelectChange(selectedValue: string) {
+    console.debug('Selection changed: ', selectedValue);
+    this.currentDevice = this.scanner.getDeviceById(selectedValue);
+  }
+
+  handleQrCodeResult(resultString: string) {
     console.log(resultString);
     this.qrResultString = resultString;
+    
   }
+
+  stateToEmoji(state: boolean): string {
+
+    const states = {
+        // not checked
+        undefined: '❔',
+        // failed to check
+        null: '⭕',
+        // success
+        true: '✔',
+        // can't touch that
+        false: '❌'
+    };
+
+    return states['' + state];
+}
 
 }
